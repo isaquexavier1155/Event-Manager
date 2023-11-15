@@ -146,7 +146,8 @@
 	Então executamos: php artisan migrate
 
 	Ao adicionar um campo manualmente no arquivo da pasta migrations,  com o comando: $table->string('name');
-	Devemos executar: php artisan migrate:fresh para deletar e refazer todas as tabelas novamente
+	Devemos executar: php artisan migrate: fresh para deletar e refazer todas as tabelas novamente
+	Teste commmit
 
 
 
