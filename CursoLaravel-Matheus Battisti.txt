@@ -1,0 +1,164 @@
+
+			Laravel
+
+	Framework construido em linguagem PHP
+	Utiliza arquiteturs MVC (Model, Viw e Controller)
+	Utiliza classe, metodos e propriedades
+	Controller: Onde fica logica de negocios, validações
+	Model: onde ocorre gerenciamaneto de banco de dados
+	View: Parte visula do sistema
+	Artisan:Terminal de gerenciamento do banco de dados atraves de comandos
+	Migrations: Como se fosse versionamento de banco de dados
+	Blade: Ajuda manusear a view do sistema 
+	Facil de criar codigo
+	Estrutura de pastas organizadas
+	
+	Intalação: tem que ter php superior a 7.3 -ok tenho o 8.2.5
+	Composer - ok
+	VS Code - ok
+	Xamp - ok
+
+	
+	Rodar comando no terminal do Vs Code para instalar o Laravel: 
+	composer create-project --prefer-dist laravel/laravel hdcevents
+	hdcevents é o nome do projeto
+	Ir na pasta raiz do projeto e executar com comando: cd hdcevents 
+	Depois executar o Laravel com o seguinte comando: php artisan serve para iniciar servidor web
+	Depois entrar no navegador pelo endereço: http://127.0.0.1:8000
+
+
+	ROTAS E VIWES
+
+	Vamos acessar as paginas do projeto pelas rotas: URL
+	Viwes: são as representações gráficas das páginas
+	Nas viewu teremos os templates onde ha a estruturação da página por meio de HTML
+	Templates podem rederizar dados dinamicos por meio do PHP
+	Blade e templates são sinonimos
+	
+	Arquivo web.php tem todas as rotas disponíveis do Laravel
+
+	BLADE: Template Engine do Laravel
+	HTML puro pelo Blade e com Engine(Motor) busca dados do banco e das controllers
+	Deixa as views dinamicas
+	Views são responsabilidades do Blade
+	Condicionais, for, forecah
+
+	DIRETIVAS
+	Diretivas do template Engine no HTML 
+	Exemplo mostra resulado na tela conforme codicional
+	@if(10 > 5)
+                		<p>A condição é true</p>
+        	@endif
+
+*******************************Exemplo de diretiva com dados dinâmicos:
+
+	   <p> {{ $nome }} </p>  
+     	@if($nome == "Isaque")
+        		<p>O nome é Isaque</p>
+     	@else
+        		<p>O nome não é Isaque</p>
+     	@endif
+
+*************************************
+
+	Todos os dados dinâmicos estão entre duas chaves no meio do HTML, por exemplo num <p></p>
+
+	AVANÇANDO NO BLADE - O que podemos fazer com Blade?
+	Criar estrutura de repetição for e for each
+	Poder escrever PHP puro
+	Escrever comentários nos arquivos de view
+	Limitar acesso de usuários
+	Autenticação
+
+	ADICIONANDO ARQUIVOS ESTÁTICOS
+	
+	Os arquivos estáticos, css e js devem ser adicionados dentro da pasta public do projeto Laravel
+	Laravel proporciona uma maneira muito fácil de inserir estes arquivos estáticos
+	Todos estes recursos estao na pasta public
+
+	Layouts com Blade
+	Para reaproveitar codigos
+	Usar mesmo header e footer em todas as páginas sem repetir codigos
+	Podemos criar seções do site que muda conforme usuário estiver logado ou deslogado e title da página
+	
+	Prática
+
+	Comentar , comentario, comentário bloco:  VS CODE PHP:  CONTROL+K E DEPOIS CONTROL+C
+	<!-- mudar conteudo dinamicamente -->
+       	 @yield('content')
+
+	Para utilizar layouts do Blade deve-se colocar a notação @yield onde será obtido conteudo (main.blade.php)
+	E nas views coloca-se as @sections referentes a cada @yield para receber o conteudo obtido (products.blade.php) 
+
+	Parâmetros nas rotas
+
+	Podemos mudar como uma view nos responde adicionando parâmetros
+	Ao definir a rota devemos colocar o parâmetros desta meneira: {id}
+	Podemos ter parÂmetros aopcionais tambem, adicionando uma ?;
+	Podemos usar query parameters, utilizando a seguinte sintaxe: ?nome=Marheus&idade=29
+
+	Teste no navegador: http://127.0.0.1:8000/produtos
+
+	Criando Controllers
+	
+	Tem papel de enviar e esperar resposta do banco de dados e para views
+	Podem ser criados via artisan via comando no terminal
+	Redirecionamento para URL 
+	Cada controle tem uma action de ums rota
+
+	Comando para criar controller via linha de comando: php artisan make:controller EventController
+	Nome da classe de controle: EventController
+	PS C:\Users\isaqu\OneDrive\Documentos\Curso-PHP\Curso Laravel\hdcevents> php artisan make:controller EventController
+
+	    Tarefa:: Criar controllers para contatos e produtos
+
+
+	CONEXÃO DO LARAVEL COM BANCO DE DADOS
+	
+
+	Segurança foi aprimorada no Laravel
+	Toda a configuração do Laravel fica em arquivo .env
+	Laravel tambem utiliza um ORM(Object-Relational Mapping) chamada Eloquent
+	e Migrations para gerenciamento de tabelas e versionamento do banco de dados, roolback
+
+	Conexão de Laravel com banco de dados
+
+	1 - Abrir Xampp (servidor de banco de dados)
+	2 - Ligar MySQL e Apache no Xampp
+	3 - Acessar PHP MY ADMIN: http://localhost/phpmyadmin/
+	4 - Crie banco de dados chamado hdceventscurso 
+	5 - executar comando no terminal VScode, dentro da pasta raiz do projeto, para criar tabelas padrões do Laravel: 
+	6 - Adição de extensão PDO MYsql
+	7 - Comando: php artisan migrate
+	Criação da tabela relaizada com sucesso.
+
+	MIGRATIONS
+
+	Funcionam como um versionamento de banco de dados
+	Podemos avnçar e retroceder a qualquer momento
+	Adicionar colunas e remover de forma facilitada
+	Fazer setup de BD de uma nova instalação em apenas um comando
+	Podemos verificar as migations com migrate:status
+
+	Comado para criar migration: php artisan make:migration create_products_table
+	Ver status da migation: php artisan migrate:status
+	Quando status estiver pending deve-se significa que ela não foi rodada ainda
+	Então executamos: php artisan migrate
+
+	Ao adicionar um campo manualmente no arquivo da pasta migrations,  com o comando: $table->string('name');
+	Devemos executar: php artisan migrate:fresh para deletar e refazer todas as tabelas novamente
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+	
