@@ -3,36 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Event;
 
 class EventController extends Controller
 {
-    //ation, rota principal da aplicação, compativel com a rota barra: / do arquivo web.phph
+    //action, rota principal da aplicação, compativel com a rota barra: / do arquivo web.phph
     //Todos os CRUDS da aplicação ficarão aqui na controller
-    
+    //chamando o model chamado Event da pasta Models com use acima
+    //método all obtem todos os registros do banco de dados
+    //model tem a finalidade de se conectar com a tabela do banco de dados
     public function index(){
-        $nome = "isaque";
-        $arr = [10,20,30,40,50];
-        $nomes = ["Matheus","Maria","João","Saulo"];
-        return view('welcome', 
-        [
-            'nome' => $nome,
-            'arr' => $arr,
-            'nomes' => $nomes
-        ]);
+        $events = Event::all();
+        //dd($events); // Verifique os eventos aqui
+        return view('welcome', ['events' => $events]);
 
     }
 
     public function create(){
         return view('events.create');
     }
-
-    public function contact(){
-        return view('events.contact');
-    }
-
-    public function product(){
-        return view('events.product');
-    }
-
 
 }
