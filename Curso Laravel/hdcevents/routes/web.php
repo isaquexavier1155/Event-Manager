@@ -11,4 +11,12 @@ use App\Http\Controllers\EventController;
 //URL, CONTROLLER E ACTION
 Route::get('/', [EventController::class, 'index']);
 Route::get('/events/create', [EventController::class, 'create']);
+Route::get('/events/{id}', [EventController::class, 'show']);
+//metodo store recebe toda logica de adição de dados no BD
+Route::post('/events', [EventController::class, 'store']);
+
+
 Route::get('/events/contact', [EventController::class, 'contact']);
+// Rout::get('/contact', function () {
+//     return view('contact');
+// });
