@@ -204,6 +204,17 @@ header {
     margin: 20px 0;
 }
 
+/* Items dísponiveis no Evento */
+
+#items-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+#items-list li {
+    display: flex;
+}
+
 /* footer */
 
 footer {
