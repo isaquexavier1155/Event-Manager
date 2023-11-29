@@ -13,9 +13,19 @@ class EventController extends Controller
     //método all obtem todos os registros do banco de dados
     //model tem a finalidade de se conectar com a tabela do banco de dados
     public function index(){
-        $events = Event::all();
+
+        $search = request('search');
+
+        if($search){
+            $events = Event::where([
+                ['title', 'like', '%'.$search.'%']
+            ])->get();
+        }else{
+            $events = Event::all();
+        }
+
         //dd($events); // Verifique os eventos aqui
-        return view('welcome', ['events' => $events]);
+        return view('welcome', ['events' => $events, 'search' => $search]);
 
     }
 
