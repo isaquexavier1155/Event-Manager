@@ -10,7 +10,7 @@ use App\Http\Controllers\EventController;
 //vai utilizar o controller e tambem a rota ou action index
 //URL, CONTROLLER E ACTION
 Route::get('/', [EventController::class, 'index']);
-Route::get('/events/create', [EventController::class, 'create']);
+Route::get('/events/create', [EventController::class, 'create'])->middleware('auth');
 Route::get('/events/{id}', [EventController::class, 'show']);
 //metodo store recebe toda logica de adição de dados no BD
 Route::post('/events', [EventController::class, 'store']);
