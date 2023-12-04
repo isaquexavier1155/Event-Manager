@@ -72,7 +72,10 @@ class EventController extends Controller
 
         $user = auth()->user();
         $events = $user->events;
-        return view('events.dashboard', ['events' => $events]);
+        $eventsAsParticipant = $user->eventsAsParticipant;
+        return view('events.dashboard', 
+        ['events' => $events, 'eventsasparticipant' => $eventsAsParticipant]
+        );
     }
     public function destroy($id){
         Event::findOrFail($id)->delete();
@@ -80,7 +83,13 @@ class EventController extends Controller
     }
 
     public function edit($id){
+        $user = auth()->user();
         $event = Event::findOrFail($id);
+
+        if($user->id != $event->user_id){
+            return redirect('/dashboard');
+        }
+
         return view('events.edit', ['event' => $event]);
     }
 
@@ -95,9 +104,11 @@ class EventController extends Controller
             $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
             $requestImage->move(public_path('img/events'), $imageName);
             $data['image'] = $imageName;
+            Event::findOrFail($request->id)->update($data);
+        }else{
+             Event::findOrFail($request->id)->update($date);
         }
 
-        Event::findOrFail($request->id)->update($data);
         return redirect('/dashboard')->with('msg', 'Evento aditado com sucesso!');
     }
 
