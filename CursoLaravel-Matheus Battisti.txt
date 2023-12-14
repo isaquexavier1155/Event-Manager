@@ -146,20 +146,338 @@
 	Então executamos: php artisan migrate
 
 	Ao adicionar um campo manualmente no arquivo da pasta migrations,  com o comando: $table->string('name');
+	ATENÇÃO: Ao executar comando FRESSH irá perder todos os dados salvos nas tabelas
 	Devemos executar: php artisan migrate: fresh para deletar e refazer todas as tabelas novamente
 	Teste commmit
 
+	Ajustar tamanho dos campos
+	$table->string('name', 100);
+            	$table->integer('qtd');
+            	$table->text('description');
 
 
+	AVANÇANDO EM MIGRATIONS
+	
+	Ao adicionar novo campo em tabela deve-se criar uma nova migration
+	rollback: volta uma migration
+	reset: voltar todas as migrations
+	refresh: voltar todas as migrations e rodar migrate novamente
+
+	ADICIONAR NOVA COLUNA OU CAMPO EM TABELA EXSITENTE
+	Para gerar nova campo sem intervir em outras tabelas os campos criados, executar o seguinte comando:
+	php artisan make:migration +NOMEDACOLNA exem-> php artisan make:migration add_category_to_products_table
+	depois ediatar migration gerada e adicionar campos manualmente nos metodos e 
+	down
+	$table->dropColumn('category');
+	e metodo up 
+	$table->string('category', 100);
+	para funcionar o rollback o metodo down deve estar no seguinte formato: $table->dropColumn('category');
+	
+	para voltar campo imediatamnete após ser criado: 
+	php artisan migrate:rollback
 
 
+	ELOQUENT
+	OBTENDO DADOS DA TABELA ATRVÉS DE MODEL, VIEW ECONTROLLER (MVC)
 
+	Eloquente é a ORM (abstração as querys por exemplo select from...) do Laravel
+	Cada tabela tem um model que é responsavel pela interação entre as requisições ao banco
+	A convençao para o Model é o nome da entidade em singular
+	No model faremos poucas alterações dos arquivos geralmente configurações específicas	
 
+	echo('<pre>');
+	echo('Param: ').PHP_EOL;
+                 var_dump($param).PHP_EOL;
+	echo('</pre>');
 
+	Estava dando erro de extensoes novamente ai tive que conferir os arquivos php.ini e reiniciar o sitema para corriigir o problema
+	
+	FINALIZANDO A HOME HTM E CSS
 
+	Adicionando registro ao banco
 
+	No laravel é comun ter uma action específica para o post chamada de STORE
+	Lá vamos criar o objeto e compor ele com base nos dados enviados pelo POST
+	Com o objeto formado utlizamos o método SAVE para persistir os dados
+	
+	Criar designer do fomrulário, exemplo no arquivo create.blade.php: 
+@section('content')
+
+<div id="event-create-container" class="col-md-6 offset-md-3">
+    <h1>Crie o seu evento</h1>
+    <form action="/events" method="POST">
+        <div class="form-group">
+           <label for="titlr">Evento:</label> 
+           <input type="text" class="form-control" id="title" name="title" placeholder="Nome do Evento ">
+        </div>
+        <div class="form-group">
+           <label for="titlr">Cidade:</label> 
+           <input type="text" class="form-control" id="city" name="city" placeholder="Local do Evento ">
+        </div>
+        <div class="form-group">
+           <label for="titlr">O evento é privado?:</label> 
+           <select name="private" id="private" class="form-control">
+                <option value="0">Não</option>
+                <option value="1">Sim</option>
+           </select>
+        </div>
+        <div class="form-group">
+           <label for="titlr">Descrição:</label> 
+           <textarea name="description" id="description" class="form-control" placeholder="O que vai acontecer no evento?"></textarea>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Criar Evento">
+    </form>
+</div>
+
+@endsection
+
+	Depois criar rota de post no formulário, exemplo arquivo web.ph
 	
 
+	Flash Messages
 
+	Podemos adicionar mensagens ao usuario por session
+	Estas mensagens são conhecidas por flash messages
+	Podemos adicionar com método with nos controllers
+	Utilizdas para apresentar um feedback ao usuario
+	No blade podemos verificar a presença da mensagem pela diretiva @session;
+
+	Para executar mensagens de sucesso ou error deve-se adicionar no layout principal com ->with e depois deve-se
+	verificar se existe mensagem na classe principal do HTML
+
+	Fazendo Upload de Imgens com Laravel
+	
+	tem que mudar enctype do from e criar um input de envio das mesmas;
+	Fazer um tratamento de verificação no controller;
+	Depois salvar a imagem com nome unico;
+	No banco salvamos apenas o path para a imagem.
+
+	Para criar novo campo na tabela sem apagar todos os registros salvos:
+	comando: php artisan make:migration add_image_to_events_table
+	Ajustar codigo da migration
+	Em seginda ajustar a função up: $table->string('image');
+	E ajustar a função down: $table->dropColumn('image');
+	Para adicionar campo image na tabela do banco de dados
+	Depois executar: php artisan migrate
+
+	Resgatando Registro do banco de dados
+
+	Construção da View do evento;
+	Resgatar apenas um registro;
+	Utilização do método findOrFail;
+	Criação de nova view e rota para esta função;
+	Esta tela tem a funçaõ de exibir todas a informações do evento e tambem botão de participar.
+
+
+	Manipulando Arquivos JSon
+	
+	Podemos salvar um conjunto de dados no banco para itens de múltipla escolha;
+	Criação de campo determinado de json via migration;
+	Utilização de input com checkbox;
+	Apos envio para controller receber request.
+
+	1 - php artisan make:migration add_items_to_events_table
+	2 - Editar métodos up e dow da migration
+	3 - php artisan migrate
+
+	Salvando Datas no Banco de Dados com Laravel
+
+	Precisamos criar um input do tipo date na nossa view;
+	Um campo de dateTime via migrations
+	E processar o envio dos dados via contoller pelo request de POST.
+	
+	Busca no Laravel
+	Utilizar o Eloquent;
+	Utilizar where fazendo filtro e enviando para a view;
+	Fzer a exibição da busca na pr´pria Hime mudando layout com diretivas de Blade.
+
+	Autenticação no Laravel
+	Utilizar o Jetstream;
+	Instalar o pacote via composer;
+	Depois instalar o Liveware;
+	E por fim rodamos as migrations.
+
+	1 - comando: composer require laravel/jetstream
+	2 - php artisan jetstream:install liveware
+	3 - npm install
+	4 - npm run dev	
+	3 - php artisan migrate:status
+	4 - php artisan migrate
+	5 - php artisan migrate:status
+
+	@guest
+	@endguest
+
+	Nova senha gam
+	migrate:status
+	trans: migrate:statuss
+
+	Login: isaque.ixs@gmail.com
+	pass: 11551011
+
+
+	Relacionamento entre Tabelas - Relations(one to many)
+
+	Relaçao de um para muitos;
+	Um usuário será dono de um evento;
+	Alterar migrations.
 
 	
+	php artisan make:migration add_user_id_to_events_table
+	Editar up
+	$table->foreignId('user_id')->constrained();
+	Editar down
+	$table->foreignId('user_id')
+            	->constrained()
+            	->onDelete('cascade');
+
+	Depois adicionar uma funcao para cada model relacionada
+	Event.php
+	// Para indicar que esse evento pertence a um usuário
+   	 public function user() {
+        	return $this->belongsTo('App\Models\User');
+   	 }
+	User.php
+	//indica que um usuário tem muiros eventos
+	public function events() {
+        	return $this->hasMany('App\Models\Event');
+    	}
+	
+	Ao pegar usuário saber quais eventos estão vinculados 
+	E ao pegar um evento saber qual usuário esta vinculado a ele
+	
+	php artisan migrate:fresh
+
+	Adicionar na controller:
+	$user = auth()->user();
+       	 $event->user_id = $user->id;
+
+	Adicionar função na rota que só podera ser acessada se usuário estiver logado (->middleware('auth');)
+	Exemplo rota de criação de eventos -> Criar evento
+	Route::get('/events/create', [EventController::class, 'create'])->middleware('auth');
+
+	Exibindo dados do usário na view
+	
+	Editar eventController
+	 $eventOwner = User::where('id', $event->user_id)->firt()->toArray();
+	e
+	return view('events.show', ['event' => $event, 'eventOwner' =>$eventOwner]);
+	
+
+**************************************************************************************
+	Criando um dashboard ADministrativa
+
+	
+	Ligação de usuário com evento;
+	Informar todos os eventos que usuário possui;
+	Futuramente adicionar funcionalidade de edição e de deleção;
+	Lista de todos os eventos vinculados ao usuário.
+
+*****************************************************************
+	Deletando Eventos
+
+	Deletar Eventos;
+	Utilizaremos uma nova rota para isso;
+	Utilização do verbo HTTP DELETE;
+	Criação de lógica no nosso Controller para essa alteração persistir no banco de dados.
+
+	1 - Criação de rota com verbo DELETE - arquivo web.php
+	Route::delete('/events/{id}', [EventController::class, 'destroy']);
+	2 - Criação de função para deletar arquivo - arquivo EventController.php
+	 public function destroy($id){
+       	 Event::findOrFail($id)->delete();
+        	return redirect('/dashboard')->with('msg', 'Evento excluído com sucesso!');
+   	 }
+	3 - Ajuste na view para exibir dados no front end - arquivo dashboard.blade.php
+	 <td>
+                        <a href="#" class="btn btn-info edit-btn"><ion-icon name="create-outline"></ion-icon> Editar</a>
+                        <form action="/events/{{ $event->id }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger delete-btn"><ion-icon name="trash-outline"></ion-icon> Deletar</button>
+                        </form>
+                    </td>
+
+**************************************************************
+
+	Editando eventos
+
+	Criar nova view e rota;
+	Utilização de verbo HTTP chamado PUT;
+	Persistir alterações no BD  por meio de uma action no Controller;
+	Utlização de 2 actions.
+
+*************************************************************
+	
+	Relations (many to many)
+
+	Nova relção;
+	Lógica de participação de eventos;
+	Criação de nova tabela que administra estas relações seguindo a conveção do Larvel.
+
+		
+	joao@gmail.com
+	teste12345
+
+**********************************************************
+
+	Exibindo eventos do Usuário e adição de segurança
+	
+	Alteração de segurança na rota de edição de eventos para não permitir editar evento se não pertencer ao usuário logado.
+	Regra: Usuário só pode editar eventos criados por ele mesmo.
+
+	public function edit($id){
+        	$user = auth()->user();
+        	$event = Event::findOrFail($id);
+
+        	if($user->id != $event->user_id){
+           	return redirect('/dashboard');
+       	 }
+
+        	return view('events.edit', ['event' => $event]);
+  	  }
+
+
+*************************************************
+	Implementação de funcionalidade de sair do evento que estava participando - git
+	Desativação de botão confirmar presença se já estiver participando do evento e estilização de mensagem informativa- git
+	
+***********************************************
+	Integração de sistema de pagamento via pagseguro do uol
+	
+	1- Criar conta no pagseguro uol
+	2- entrar na central de sandbox : https://sandbox.pagseguro.uol.com.br/primeiros-passos.html
+	
+
+	Meu token: 9105300A391A47B7AE5D1D41EBF2E9E5
+
+	public key: {
+  "public_key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr+ZqgD892U9/HXsa7XqBZUayPquAfh9xx4iwUbTSUAvTlmiXFQNTp0Bvt/5vK2FhMj39qSv1zi2OuBjvW38q1E374nzx6NNBL5JosV0+SDINTlCG0cmigHuBOyWzYmjgca+mtQu4WczCaApNaSuVqgb8u7Bd9GCOL4YJotvV5+81frlSwQXralhwRzGhj/A57CGPgGKiuPT+AOGmykIGEZsSD9RKkyoKIoc0OS8CPIzdBOtTQCIwrLn2FxI83Clcg55W8gkFSOS6rWNbG5qFZWMll6yl02HtunalHmUlRUL66YeGXdMDC2PuRcmZbGO5a/2tbVppW6mfSWG3NPRpgwIDAQAB",
+  "created_at": 1577836800000
+}
+	
+	MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAr+ZqgD892U9/HXsa7XqBZUayPquAfh9xx4iwUbTSUAvTlmiXFQNTp0Bvt/5vK2FhMj39qSv1zi2OuBjvW38q1E374nzx6NNBL5JosV0+SDINTlCG0cmigHuBOyWzYmjgca+mtQu4WczCaApNaSuVqgb8u7Bd9GCOL4YJotvV5+81frlSwQXralhwRzGhj/A57CGPgGKiuPT+AOGmykIGEZsSD9RKkyoKIoc0OS8CPIzdBOtTQCIwrLn2FxI83Clcg55W8gkFSOS6rWNbG5qFZWMll6yl02HtunalHmUlRUL66YeGXdMDC2PuRcmZbGO5a/2tbVppW6mfSWG3NPRpgwIDAQAB
+
+
+*********************************************
+	Integração com Pix PHP
+
+	echo "<pre>";
+	print_r($obPayload);
+	echo "</pre>";
+
+https://www.bcb.gov.br/content/estabilidadefinanceira/pix/Regulamento_Pix/II_ManualdePadroesparaIniciacaodoPix.pdf
+
+
+	Linha que está gerando 6010 em vez de gerar 6009
+	Deve gerar 6009
+	$this->getValue(self::ID_MERCHANT_CITY, $this->merchantCity).
+
+	Login W3 para imagens online svg
+	https://www.w3.org/users/151000/
+	login: isaqueixs-gmailcom2024
+	ub_ty7ym8XsRz6454545f
+
+
+
+
