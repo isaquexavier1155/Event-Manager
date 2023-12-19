@@ -22,16 +22,7 @@ header {
     padding: 0;
 }
 
-.btn-primary {
-   background-color: #C28008;
-   border: 2px solid #C28008; 
-   margin-top: 15px;
-}
 
-.btn-primary:hover {
-    background-color: #C28008;
-    border-color: #C28008; 
- }
 
  /* Stylo da mensagem de criação de evento */
  .msg {

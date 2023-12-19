@@ -231,7 +231,7 @@
 
 @endsection
 
-	Depois criar rota de post no formulário, exemplo arquivo web.ph
+	Depois criar rota de post no formulário, exemplo arquivo web.php
 	
 
 	Flash Messages
@@ -251,6 +251,8 @@
 	Fazer um tratamento de verificação no controller;
 	Depois salvar a imagem com nome unico;
 	No banco salvamos apenas o path para a imagem.
+
+/////////////////////////////////////////////////////////////
 
 	Para criar novo campo na tabela sem apagar todos os registros salvos:
 	comando: php artisan make:migration add_image_to_events_table
@@ -477,6 +479,85 @@ https://www.bcb.gov.br/content/estabilidadefinanceira/pix/Regulamento_Pix/II_Man
 	https://www.w3.org/users/151000/
 	login: isaqueixs-gmailcom2024
 	ub_ty7ym8XsRz6454545f
+
+////////////////////////////////////////////////////////////////////////
+
+	Salvar dados no banco de dados criado com 
+	
+	// Criar tabela exemplo
+	1 - php artisan make:migration create_rifas_table
+	// Editar métodos up e dow
+	2 - Editar métodos up e dow da migration
+	// Para confirmar a criação dos campos na tabela
+	3 - php artisan migrate
+	//Criação de model na pasta models
+	4 - php artisan make:model Rifa
+	// Criar controlador
+	5 - php artisan make:controller RifaController
+	6- php artisan migrate
+
+/////////////////////////////////////////////////////////////
+	Ao sair no sistema de Eventos vai para inicio  http://127.0.0.1:8000/
+	Ao clicar en entrar vai para http://127.0.0.1:8000/login
+	Ao clicar em login vai para http://127.0.0.1:8000/dashboard com Meus eventos e eventos que estou participando
+
+
+	Arrecadação estimada = qtd_bilhetes * valor_bilhete
+
+//////////////////////////////////////////////
+
+Obteve dados dos campos valor_bilhetes e quantidade_bilhetes corretamente:
+
+!-- Adicione no final do seu arquivo Blade -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Detecta o evento blur no campo quantidade_bilhetes
+        $('#quantidade_bilhetes').on('blur', function() {
+            // Obtém o valor do campo
+            var valorBilhetes = $(this).val();
+
+            // Atualiza a div com o valor do campo
+            $('#valor-bilhetes-container').text('Quantidade de bilhetes: ' + valorBilhetes);
+        });
+
+        // Detecta o evento blur no campo valor_bilhetes
+        $('#valor_bilhetes').on('blur', function() {
+            // Obtém o valor do campo
+            var valorBilhetes = $(this).val();
+
+            // Atualiza a div com o valor do campo
+            $('#valor-bilhetes-container').append('<br>Valor do Bilhete: ' + valorBilhetes);
+        });
+    });
+</script>
+
+////////////////////////////////////////////////////////////////
+	Debugar Controller parâmetros com Laravel
+	dd($obPayload);
+
+	Debugar todos os dados do objeto no Controller
+	dd($request->all());
+////////////////////////////////////////////////////////////////
+	Debugar View parâmetros com Laravel
+    	<!-- Objeto esta chegando aqui completo da PixController -->
+     	{{ dd($obPayload) }}  
+
+/////////////////////////////////////////////// Objeto $obPayload
+
+	App\Pix\Payload {#530 ▼ // app\Http\Controllers\PixController.php:28
+
+  	-pixKey: "isaque.ixs@gmail.com"
+  	-description: "Pagamento do pedido 123456"
+  	-merchantName: "Willian Costa"
+  	-merchantCity: "IGREJINHA"
+  	-txid: "WDEV1234"
+  	-amount: "3.00"
+	}
+
+
+
+
 
 
 

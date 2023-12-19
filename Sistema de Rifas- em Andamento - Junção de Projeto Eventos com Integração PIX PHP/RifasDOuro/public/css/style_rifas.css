@@ -32,29 +32,6 @@ body{
     #menu-icon {
         font-size: 54px;
       }
-    
-
-nav.menu-lateral{
-    width: 150px;
-    height: 100%;
-    background-color: #202020;
-    padding: 14px 0 40px 1%;
-    box-shadow: 3px 0 0 rgba(255, 215, 0, 1);
-
-    position: fixed;
-    top: 0;
-    left: -43px;
-    overflow: hidden;
-    transition: .5s;
-}
-
-
-
-
-.btn-expandir{
-    width: 100%;
-    padding-left: 50px;
-}
 
 .btn-expandir > i{
     color: #fff;
@@ -90,14 +67,9 @@ ul li.item-menu a{
 }
 
 ul li.item-menu a .txt-link{
-    margin-left: 70px;
+    margin-left: 40px;
     transition: .5s;
     opacity: 0;
-}
-
-ul li.item-menu a .icon{
-    position: relative;
-    left: 10%;
 }
 
 nav.menu-lateral.expandir .txt-link{
@@ -105,13 +77,57 @@ nav.menu-lateral.expandir .txt-link{
     opacity: 1;
 }
 
+ul li.item-menu a .icon{
+    position: relative;
+    left: 10%;
+}
+
 ul li.item-menu a .icon > i{
     font-size: 30px;
     margin-left: 10px;
 }
 
+#arrecadacao-estimada-container {
+    color: green;
+    background-color: #c0c0c0;
+    padding: 2%;
+    margin-top: 10px;
+    
+}
+
+#taxa-publicacao-container {
+    color: red;
+    background-color: #c0c0c0;
+    padding: 1.5%;
+    margin-top: 5px;
+}
+
 /* Para telas grandes /////////////////////////////////////////////////////////////////////*/
 @media (min-width: 767px) {
+
+    ul li.item-menu a .txt-link{
+        opacity: 1;
+    }
+   
+    .btn-expandir{
+        width: 100%;
+        padding-left: 50px;
+        display: none;
+    }
+
+    nav.menu-lateral{
+        width: 300px;
+        height: 100%;
+        background-color: #202020;
+        padding: 14px 0 40px 1%;
+        box-shadow: 3px 0 0 rgba(255, 215, 0, 1);
+    
+        position: fixed;
+        top: 0;
+        left: -43px;
+        overflow: hidden;
+        transition: .5s;
+    }
 
     nav.menu-lateral.expandir{
     width: 300px;
@@ -130,13 +146,28 @@ ul li.item-menu a .icon > i{
 
     .conteudo-central .centralized-content2 {
         margin-top: 30px;
-
     }
+
+    .btn-primary {
+        background-color: rgba(255, 215, 0, 1);
+        border: 2px solid rgba(255, 215, 0, 1);
+        margin-top: 15px;
+        color: black !important;
+        font-weight: bold;
+     }
+     
+     .btn-primary:hover {
+         background-color: rgba(255, 215, 0, 1);
+         border-color: rgba(255, 215, 0, 1);
+      }
+
 
     .conteudo-central .centralized-content2 span{
         
         background-color: rgba(255, 215, 0, 1);
         padding: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
         border-radius: 10px;
         font-size: 2vw;
     }
@@ -148,6 +179,25 @@ ul li.item-menu a .icon > i{
 /* Para telas pequenas até 767 pixel //////////////////////////////////////////////////// */
 
 @media (max-width: 767px) {
+
+    .btn-expandir{
+    width: 100%;
+    padding-left: 50px;
+}
+
+    nav.menu-lateral{
+        width: 100%;
+        height: 100%;
+        background-color: #202020;
+        padding: 14px 0 40px 1%;
+        box-shadow: 3px 0 0 rgba(255, 215, 0, 1);
+    
+        position: fixed;
+        top: 0;
+        left: -43px;
+        overflow: hidden;
+        transition: .5s;
+    }
 
     nav.menu-lateral.expandir{
     width: 100%;

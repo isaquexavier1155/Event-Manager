@@ -12,7 +12,7 @@ menuItem.forEach((item)=>
 )
 
 
-
+// Efeito de expansão de Menu Lateral em todas as páginas versão Mobile
 var btnExp = document.querySelector('#btn-exp')
 var menuSide = document.querySelector('.menu-lateral')
 

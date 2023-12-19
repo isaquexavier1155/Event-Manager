@@ -37,17 +37,11 @@
                         <a href="/" class="nav-link">Eventos</a>
                     </li>
                     <li class="nav-item">
-                        <a href="/events/create" class="nav-link">Criar Eventos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/events/product" class="nav-link">Produto</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/events/contact" class="nav-link">Contato</a>
+                        <a href="/events/create" class="nav-link">Criar Rifa</a>
                     </li>
                     @auth
                     <li class="nav-item">
-                        <a href="/dashboard" class="nav-link">Meus Eventos</a>
+                        <a href="/dashboard" class="nav-link">Minhas rifas</a>
                     </li>
                     <li class="nav-item">
                         <form action="/logout" method="POST">
@@ -72,6 +66,66 @@
                 </ul>
             </div>
         </nav>
+
+        <nav class="menu-lateral">
+        <!-- Seu código da barra lateral aqui -->
+        <div class="btn-expandir">
+            <i class="bi bi-list" id="btn-exp"></i>
+        </div><!--btn-expandir-->
+        
+        <ul>
+            <div id="menu-title">
+                Rifa Chance D'ouro
+                <div id="menu-icon">
+                  <ion-icon name="podium-outline"></ion-icon><!-- Ícone -->
+                </div>
+            </div>
+            <br><br>
+            <li class="item-menu @if(request()->is('home')) ativo @endif">
+                <a href="/home">
+                    <span class="icon"><i class="bi bi-house-door"></i></span>
+                    <span class="txt-link">Home</span>
+                </a>
+            </li>
+            <li class="item-menu @if(request()->is('rifas/create_rifa')) ativo @endif">
+                <a href="/rifas/create_rifa">
+                    <span class="icon"><i class="bi bi-columns-gap"></i></span>
+                    <span class="txt-link">Rifas</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="#">
+                    <span class="icon"><i class="bi bi-person-circle"></i></span>
+                    <span class="txt-link">Conta1</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="#">
+                    <span class="icon"><i class="bi bi-calendar3"></i></span>
+                    <span class="txt-link">Agenda</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="#">
+                    <span class="icon"><i class="bi bi-gear"></i></span>
+                    <span class="txt-link">Configurações</span>
+                </a>
+            </li>
+
+            <li class="item-menu">
+                <a href="#">
+                    <span class="icon"><i class="bi bi-person-circle"></i></span>
+                    <span class="txt-link">Conta2</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a href="#">
+                    <span class="icon"><i class="bi bi-person-circle"></i></span>
+                    <span class="txt-link">Conta3</span>
+                </a>
+            </li>
+        </ul>
+    </nav><!--menu-lateral-->
     </header>
 
         <!-- mudar conteudo dinamicamente -->
@@ -94,5 +148,40 @@
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
         <!-- Novos Scripts hoje -->
         <script src="/js/script.js"></script>
+
+        {{-- Inclua o jQuery e o Inputmask --}}
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+
+        {{-- Inclusão do jQuery e o Inputmask --}}
+        <script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
+
+        {{-- Máscara de telefone --}}
+        <script>
+            $(document).ready(function () {
+                $('#telefone').inputmask('(99)99999-9999');
+            });
+        </script>
+
+        {{-- Máscara de Valor do bilhete --}}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var ticketValueInput = document.getElementById('valor_bilhetes');
+
+                ticketValueInput.addEventListener('input', function () {
+                    var inputValue = ticketValueInput.value.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
+                    var formattedValue = formatCurrency(inputValue);
+                    ticketValueInput.value = formattedValue;
+                });
+
+                function formatCurrency(value) {
+                    if (!value) {
+                        return '0,00';
+                    }
+                    var number = parseInt(value, 10) / 100;
+                    return number.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                }
+            });
+        </script>
     </body>
 </html>

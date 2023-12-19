@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rifas', function (Blueprint $table) {
-            $table->id();
-            $table->string('nome_campanha');
-            $table->integer('quantidade_bilhetes');
-            $table->double('valor_bilhetes');
-            $table->integer('local_sorteio');
-            $table->string('telefone');
+        Schema::create('rifa_user', function (Blueprint $table) {
+            $table->foreignId('rifa_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rifas');
+        Schema::dropIfExists('rifa_user');
     }
 };
