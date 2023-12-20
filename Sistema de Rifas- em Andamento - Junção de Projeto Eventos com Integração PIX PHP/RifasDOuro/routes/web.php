@@ -13,7 +13,7 @@ use App\Http\Controllers\RifaController;
 
 //CRIE ESSAs ROTAs HOJE
 Route::get('/home', [RifaController::class, 'home']);
-Route::get('/rifas/create_rifa', [RifaController::class, 'create']);
+Route::get('/rifas/create_rifa', [RifaController::class, 'create'])->middleware('auth');
 Route::get('/', [RifaController::class, 'index']);
 
 Route::get('/dashboard', [RifaController::class, 'dashboard'])->middleware('auth');

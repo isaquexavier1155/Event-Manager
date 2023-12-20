@@ -95,15 +95,21 @@ class RifaController extends Controller
 
         //dd($quantidadeBilhetes, $valorBilhetesFloat, $arrecadacaoEstimada, $taxaPublicacao);
 
-
         //////////////////////Passando objeto qrcode
+        // Substitui acentos e caracteres especiais
+        $cleanUserName = str_replace(['á', 'à', 'ã', 'â', 'é', 'è', 'ê', 'í', 'ì', 'î', 'ó', 'ò', 'õ', 'ô', 'ú', 'ù', 'û', 'ç'], 
+                                    ['a', 'a', 'a', 'a', 'e', 'e', 'e', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'c'], 
+                                    $userName);
+        // Remove outros caracteres especiais
+        $cleanUserName = preg_replace('/[^a-zA-Z0-9\s]/', '', $cleanUserName);
 
+        //dd($cleanUserName);
         $obPayload = (new Payload)
         ->setPixKey('isaque.ixs@gmail.com')
-        ->setDescription('Pagamento do pedido 123456')
-        ->setMerchantName($userName)
+        ->setDescription('Pagamento da rifa ID' . $rifaId)
+        ->setMerchantName($cleanUserName)
         ->setMerchantCity('IGREJINHA')
-        ->setTxtid('WDEV1234')
+        ->setTxtid('RIFADOUROID' . $rifaId)
         ->setAmount($taxaPublicacao);
 
         $payloadQrCode = $obPayload->getPayLoad();

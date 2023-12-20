@@ -556,6 +556,107 @@ Obteve dados dos campos valor_bilhetes e quantidade_bilhetes corretamente:
 	}
 
 
+//////////////////////////////////
+	C:\Users\isaqu\OneDrive\Documentos\Curso-PHP\Curso Integração PIX PHP\files\certificates
+
+/////////////////////////////////
+
+	   echo "<pre>";
+                    print_r($obApiPix);
+                    echo "</pre>"; exit;
+
+////////////////////////////////////////////// Retorno da rota de autenticação Post
+
+{
+    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0eXBlIjoiYWNjZXNzX3Rva2VuIiwiY2xpZW50SWQiOiJDbGllbnRfSWRfNWQyODM2ZWUzM2FjZDFmMjczMTc4OTZmNTBlMmEzMThlMzI4OTllNSIsImFjY291bnQiOjUzMjY5MywiYWNjb3VudF9jb2RlIjoiODE4NGQxZmVlYzE5MmYzZjEyNmQwYjc5OGQ3ZTEwZTMiLCJzY29wZXMiOlsiY29iLnJlYWQiLCJjb2Iud3JpdGUiLCJjb2J2LnJlYWQiLCJjb2J2LndyaXRlIiwiZ24uYmFsYW5jZS5yZWFkIiwiZ24ucGl4LmV2cC5yZWFkIiwiZ24ucGl4LmV2cC53cml0ZSIsImduLnBpeC5zZW5kLnJlYWQiLCJnbi5yZXBvcnRzLnJlYWQiLCJnbi5yZXBvcnRzLndyaXRlIiwiZ24uc2V0dGluZ3MucmVhZCIsImduLnNldHRpbmdzLndyaXRlIiwiZ24uc3BsaXQucmVhZCIsImduLnNwbGl0LndyaXRlIiwicGF5bG9hZGxvY2F0aW9uLnJlYWQiLCJwYXlsb2FkbG9jYXRpb24ud3JpdGUiLCJwaXgucmVhZCIsInBpeC5zZW5kIiwicGl4LndyaXRlIiwid2ViaG9vay5yZWFkIiwid2ViaG9vay53cml0ZSJdLCJleHBpcmVzSW4iOjM2MDAsImNvbmZpZ3VyYXRpb24iOnsieDV0I1MyNTYiOiJuRXFac05aY21kRG9nc0xhYnFJWi9EUG1xNVZLWVM0Z1RZMFh2MGJzODM0PSJ9LCJpYXQiOjE3MDMwNzc3ODgsImV4cCI6MTcwMzA4MTM4OH0.w2-2b2PQEw-H3uqsiRbRBNY7xZuc41So88IMzHlLKA4",
+    "token_type": "Bearer",
+    "expires_in": 3600,
+    "scope": "cob.read cob.write cobv.read cobv.write gn.balance.read gn.pix.evp.read gn.pix.evp.write gn.pix.send.read gn.reports.read gn.reports.write gn.settings.read gn.settings.write gn.split.read gn.split.write payloadlocation.read payloadlocation.write pix.read pix.send pix.write webhook.read webhook.write"
+}
+
+///////////////////////////////////////////////////////////////////////////
+
+Dados utilizados  que deram certo para ambiente de homologação
+
+	POST para : https://pix-h.api.efipay.com.br/oauth/token
+	aba Authorization:
+		Client_Id_5d2836ee33acd1f27317896f50e2a318e32899e5
+		Client_Secret_5becb7a4e1075d8274c9dfea0087bf52e486cfe4
+
+	Evironment: 
+		Pix_Homologação
+	Certificado: 
+		host: pix-h.api.efipay.com.br
+		PFX file: /C:/Users/isaqu/OneDrive/Documentos/Clone Git Hub Projeto Integração Api PIX com Atualização de Status/wdev-qrcode-pix-php/files/certificates/gerencianet.p12
+
+
+//////////////////////////////////////////// Já configurado na collection da API
+
+	aba Body: ->raw
+		{
+    		"grant_type": "client_credentials"
+		}
+	aba Tests:
+		var jsonData = JSON.parse(responseBody);
+postman.setEnvironmentVariable("Authorization", pm.response.json().token_type + ' ' + jsonData.access_token);
+
+		var access_token = pm.response.json().access_token
+postman.setEnvironmentVariable("access_token", access_token);
+
+
+////////////////////////////////////////////
+
+	Produção deve ser usada depois que tiver com sistema on line
+
+/////////////////////////////////////////// TESTES
+
+	Tenho que verificar posteriormente se rifa foi paga atraves do estatus do json retornado pela classe consulta-qrcode-dinamico e atraves do valor recebido no array das movimentações da cobrança abaixo do seguinte retorno:
+	[solicitacaoPagador] => Pagamento do pedido 123
+
+	Ao tentar escanear qrcode de pagamento pela caixa gerou o seguinte array
+ [0] => Array
+                (
+                    [endToEndId] => E09089356202312201746API0a296965
+                    [txid] => WDEV12341234123400000000010
+                    [valor] => 10.00
+                    [chave] => isaque.ixs@gmail.com
+                    [horario] => 2023-12-20T17:46:03.000Z
+                    [infoPagador] => Teste de pagamento em ambiente sandbox
+                )
+
+
+	Quando tentei escanear pagamento novamente pela caixa não mudou nada no retorno da requisição com a consulatar_qrcode...
+	Quando tentei escanear pagamento novamente mas pelo banco do Brasil não mudou nada
+
+	Quando tentei escanear pagamento novamente em requisição numero 11
+	Inicialmete status estava como Ativa
+	Quando tentei fazer o pagamento mas deu erro e mesmo assim mudou status do pagamneto para Concluido
+
+	deixei a 12 e 11 como ativa
+	e quando recarreguei a página de geração de qrcode mudou estatus da cobrnça para CONCLUIDA
+
+
+	No postman Token é variavel a cada tempo
+	Deve ser obtido novamente antes de cada nova requisição
+/////////////////////////////////////////////
+
+	Ao utilizar consulta de qrcode dinamico percebi que toda a transação fica com status Concluida em Homologação ao recarregar página ou tentar efetuar leitura de qrcode
+
+	Fazer teste em produção para verificar esse comportamento
+
+////////////////////////////////////////// TESTE EM AMBIENTE DE PRODUÇÃO
+
+	escanear codigo e cancelar no meio para ver se muda status da cobrança
+	Não muda - ok excelente continua ativo
+	efetuar pagamento real com valor de 0.1 centavos e verificar status
+	Ao efetuar pagamento status muda de ATIVA para CONCLUIDA 
+	Recebi notificação de recebimento no app de 1 centavo mas ainda não caiu na inha conta online
+	dinheiro é enviado corretamente
+	recarregar página para ver se muda status
+	Não muda - ok excelente continua ativo
+	
+
+
 
 
 
