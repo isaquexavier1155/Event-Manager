@@ -417,9 +417,14 @@
 	Lógica de participação de eventos;
 	Criação de nova tabela que administra estas relações seguindo a conveção do Larvel.
 
+/////////////////////////////////////////////// Contas teste RifachancedOuro
 		
 	joao@gmail.com
 	teste12345
+
+	
+	Login: isaque.ixs@gmail.com
+	pass: 11551011
 
 **********************************************************
 
@@ -654,7 +659,179 @@ postman.setEnvironmentVariable("access_token", access_token);
 	dinheiro é enviado corretamente
 	recarregar página para ver se muda status
 	Não muda - ok excelente continua ativo
+
+
+///////////////////////////////////////////
+
+	// Antes
+// define('PIX_KEY','10e3ac8f-9664-4da2-868d-2d4bda9baa48');
+
+// Depois
+$pixKey = config('pix.key');
+
 	
+///////////////////////////////////
+
+	Valor gerado: 3cbb433e70a3985c2bad5290f2
+
+	Saúde, beleza e tempo
+	Como melhorar tal serviço ou produto
+	Fale o obvio
+	Tem que vender ideias e beneficios e não produtos
+	
+	Tem que ser um bom demostrador de produtos
+
+
+
+//////////////////////////////////////////////////
+
+	pagam... = conteudo-central e centralized-content
+
+	realize... centralized-content2 
+
+	Valor: ... = #taxapublicacao
+
+
+///////////////////////////////////////
+
+	#successModalLabel {
+   	 color: green;
+	}
+
+	.rifa-create-container {
+    	margin-top: 0 !important;
+	}
+
+
+	#taxapublicacao {
+    	color: green;
+	}
+	
+
+	Estava ajustando esse valor para quando for da casa de milhar Valor: R$ 15000.00 virar 15.000,00
+
+	
+/////////////////////////////////////////////////////////// Ajustes finos
+
+	Ver mais tarde quando tratar de SEO  e otimização quantos acessos sites de rifas estão tendo na web e ajustar meu 	de acordo com taxas de publicação e etc...
+
+
+
+
+///////////////////////////////////////// SEO
+	<meta name="description" content="frases para busca no google">
+	<meta name="keywords" content="palavras pesquisadas, muitas palavras">
+
+
+///////////////////////////////////////////// Templates prontos
+
+	site para restaurante com encomenda direta no site: 
+	https://demo.themefisher.com/cafedine-bootstrap/menu.html
+
+	http://seu-site.com/rifas/7/publicacao
+
+////////////////////////////////////////// Email email
+
+	Novo email criado para sistema de rifas
+	rifachancedouro@gmail.com
+	snh: Ixsrifa55chance11douro@@
+	https://www.rifachancedouro.com.br
+
+///////////////////////////////////////////////////  Tarefas
+	
+	Ao salvar campnha deve ter status_cobrança_taxa_publicacao como ATIVA -ok
+	Ao ser efetuado o pagamento deve mudar status para CONCLUIDA - ok
+	Ao salvar campanha devo tambem salvar TXID no banco de dados para conferencias futuras-ok
+	Ajustar stilo da página dashboard para mostrar status de pagamento -ok (Removido)
+	Ajustar payment_fee_publication mostrando valor da taxa de publicação a ser paga -ok
+	Salvar taxa de publicação a ser paga pelo contratante de serviços de rifa -ok 
+	Ajustar dashboard para obter apenas rifas do usuário logado -ok
+	Ajustar a página de pagamento: Adicionar instruções de pagamento via pix para acessibilidade -ok
+	E tambem mostrar arrecadação estimada - ok
+
+	Fazer um campo interativo em todas as paginas perguntando o seguinte: Está com alguma dúvida?
+	E abaixo dessa pergunta um ícone de positivo ou negativo
+	Quando usuário clicar em Positivo abrir input para ele enviar mensagem diretamente na página.
+	Somente com email dele
+	
+	Adicionar descrição e imagem da campanha
+	Esses itens serão exibidos quando pessoa for comprar numeros da rifa
+	
+	Criar no rodapé do site uma opção de made in RifaChanceDOuro e quando clicar ir para 
+	https://rifa.digital/ onde podera ser efetuada uma campanha pelo próprio comprador das rifas
+
+
+	Adicionei os campos descricao e imagem na tabela rifas mas não consegui salvar , ver controller
+
+
+////////////////////////////////////////////////// Validações de segurança
+
+           'imagem' => 'image|max:4096', // Limite de 4 MB (ajuste conforme necessário)
+            // Ajustar tambem arquivo php.ini do local c - pesquisar upload_max e ajustar, esta em 4MB
+            'nome_campanha' => 'required|string|max:255',
+            'descricao' => 'required|string|max:1000',
+            'quantidade_bilhetes' => 'required|integer|min:1',
+            'valor_bilhetes' => 'required|numeric|min:0.01',	
+
+//////////////////////////////////// Texto descrição
+	Sorteio será realizado em live no youtube canal rifasChance de Ouro: link
+
+	Quanto mais numeros você comprar mais cahnce tem de ganhar
+
+	Sorteio válido até o dia 30/12/2023
+///////////////////////////////////////////////////  Tarefas Futuras Pendentes
+
+	
+	Não esquecer de criar tela com descrição detalhada sobre todo o processo de criação de rifas para e ajudar no SEO da página futuramente
+	Depois que eu colocar na rede testar responsividade e testar criação de usuário e reset de senha e erro que estava dando ao cadastrar novo usuário
+
+///////////////////////////////////////////////////  Tarefas
+
+	Ao salvar comprador tenho que vincular ele ao id da campanha para depois conseguir continuar - ok
+	
+	Ao criar comprador devo salvar mais um campo:  status_cobranca_bilhetes para ativar efeito de mudança de tela automática após pagamento dos bilhetes - ok
+
+	Ao salvar novo usuário devo já salvar a chave_pix que será usada para receber valor dos bilhetes - ok 
+	Alterar trecho para criar qrcode com chave dinâmica: 'chave' => $pixKey, na compradorController
+	
+	Ao criar comprador  devo salvar tambem a $txId; e $valor de pagamentoBilhetes
+
+
+
+
+//////////////////////////////////////Racionais mcs projetos sociais
+
+	Talentos aprisionados foi um projeto social que acontecia no carandiru atraves de um atris onde Dexter participou 
+	Projeto Dexter: nome: Como vai seu mundo ou Como vai ser o Mundo
+	
+//////////////////////////////////////Alteração erro de consultQrCode
+
+
+	Alterei public function consultQrCode() na classe: RifaController
+
+
+	Esta dando erro ao salvar um novo usuário
+	Tem a ver com a function atualizarStatusCobranca() {   da classe payment_...
+
+	Esse erro corre quando em outra aba esta rodando páginas com script de verificação de Status
+	2 Páginas de pagamento payment_...
+
+/////////////////////////////////////////////////////// Arquivo com erros em ingles
+
+	Traduzir conforme necessidade
+	validation.php
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

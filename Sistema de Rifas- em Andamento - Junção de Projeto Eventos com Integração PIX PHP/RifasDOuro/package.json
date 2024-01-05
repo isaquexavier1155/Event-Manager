@@ -35,6 +35,7 @@
     "camelcase-css": "^2.0.1",
     "caniuse-lite": "^1.0.30001565",
     "chokidar": "^3.5.3",
+    "ckeditor4": "^4.23.0",
     "combined-stream": "^1.0.8",
     "commander": "^4.1.1",
     "concat-map": "^0.0.1",

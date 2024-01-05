@@ -17,6 +17,9 @@ class Rifa extends Model
         'valor_bilhetes',
         'local_sorteio',
         'telefone',
+        'txId',
+        'descricao',
+        'imagem',
     ];
 
         // Para indicar que esse evento pertence a um usuário
